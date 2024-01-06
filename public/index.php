@@ -5,4 +5,6 @@ require_once '../app/controllers/HomeController.php';
 // use app\controllers\HomeController;
 $app = new Application();
 Router::get('/',[HomeController::class, 'index']);
+Router::post('/login',[HomeController::class, 'login']);
 $app->run();
+

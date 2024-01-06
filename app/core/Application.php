@@ -6,13 +6,15 @@ class Application{
 
         $callback = Router::getCallback();
  
-        $callback = Router::getCallback();
-
-    if (is_callable($callback)) {
-        call_user_func($callback);
-    } else {
-        echo "Invalid callback!";
-    }
+        $routes = Router::getroutes();
+    //     echo '<pre>';
+    //    var_dump($callback);
+    //     echo '</pre>';
+    // if (is_callable($callback)) {
+    //     call_user_func($callback);
+    // } else {
+    //     echo "Invalid callback!";
+    // }
         
        
      }
