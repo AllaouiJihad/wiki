@@ -4,13 +4,11 @@ class Router {
     static private array $routes = [];
 
     static public function get($path, $callback){
-        if (is_array($callback))
-        self::$routes['get'][$path]=$callback;
+        self::$routes['get'][$path] = $callback;
     }
 
     static public function post($path, $callback){
-        if (is_array($callback))
-        self::$routes['post'][$path]=$callback;
+        self::$routes['post'][$path] = $callback;
     }
     
     static public function getroutes(){
@@ -18,51 +16,55 @@ class Router {
     }
     
     static public function getCallback(){ 
-        $path= Request::getPath();
+        $path = Request::getPath();
         $method = strtolower(Request::getMethod());
-        // var_dump($path);
-        // var_dump($method);
+
         $callback = self::$routes[$method][$path] ?? false;
 
         if ($callback) {
             if (is_string($callback)) {
-                return $this->renderView($callback);
+                return self::renderView($callback);
             }
-        
-            if (is_array($callback)) {
+
+            if (is_array($callback) && count($callback) == 2 && class_exists($callback[0])) {
                 $controller = new $callback[0]();
                 $method = $callback[1];
 
-                return call_user_func([$controller, $method]);
-
+                if (method_exists($controller, $method)) {
+                    return call_user_func([$controller, $method]);
+                }
             }
-        
-            return call_user_func($callback);
+
+            if (is_callable($callback)) {
+                return call_user_func($callback);
+            }
         }
-        return $this->renderView(404);
+
+        // Route not found
+        http_response_code(404);
+        return self::renderView('404'); // Assuming you have a 404 view
     }
 
-    public function renderView($view, $variables = [])
+    static public function renderView($view, $variables = [])
     {
-        $layoutContent = $this->layoutContent();
-        $viewContent =  $this->renderOnlyView($view, $variables);
+        $layoutContent = self::layoutContent();
+        $viewContent =  self::renderOnlyView($view, $variables);
         return str_replace("{{content}}", $viewContent, $layoutContent);
     }
 
-    protected function renderOnlyView($view, $variables = [])
+    static protected function renderOnlyView($view, $variables = [])
     {
-        extract($variables);
+        // extract($variables);
 
         ob_start();
-        require_once dirname(__DIR__)."app/views/$view.php";
+        require_once dirname(__DIR__)."\\views\\$view.php";
         return ob_get_clean();
     }
 
-
-    protected function layoutContent()
+    static protected function layoutContent()
     {
         ob_start();
-        require_once dirname(__DIR__)."app/views/layout/main.php";
+        require_once dirname(__DIR__)."/views/layout/main.php";
         return ob_get_clean();
     }
 }
