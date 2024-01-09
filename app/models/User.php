@@ -1,13 +1,18 @@
 <?php
 require_once '../database/database.php';
-class User{
+class User extends Database {
     private $id;
     private $fname;
     private $lname;
     private $email;
     private $pwd;
+    private $db;
     // private $role;
     
+    public function __construct() {
+        parent::__construct();
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -49,15 +54,16 @@ class User{
     }   
 
 
-    public function signup(){
+    public function signup() {
         $hashedPassword = password_hash($this->pwd, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `utilisateur`(`Fname`, `Lname`, `email`, `pwd`, `id_role`) VALUES($this->fname,$this->lname,$this->email,$hashedPassword,2)";
-        $result = Database::connexion()->getPdo()->query($sql);
-        if ($result) {
+        $sql = "INSERT INTO `utilisateur` (`Fname`, `Lname`, `email`, `pwd`, `id_role`) VALUES (?, ?, ?, ?, 2)";
+        $stmt = $this->getConnection()->prepare($sql);
+        $stmt->execute([$this->fname, $this->lname, $this->email, $hashedPassword]);
+        if ($stmt) {
             echo true;
         } 
         else {
-            echo "Error";
+            echo false;
         }
 
     }

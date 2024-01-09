@@ -173,16 +173,8 @@ body {
     </style>
 
 <div class="login-box">
-  <h2>Inscrivez-vous</h2>
+  <h2>se connecter</h2>
   <form method="post">
-    <div class="user-box">
-      <input type="text" name="lname" required="">
-      <label>Nom</label>
-    </div>
-    <div class="user-box">
-      <input type="text" name="fname" required="">
-      <label>prenom</label>
-    </div>
     <div class="user-box">
       <input type="email" name="email" required="">
       <label>email</label>
@@ -196,10 +188,11 @@ body {
       <span></span>
       <span></span>
       <span></span>
-      regitre
+      login
       </button>
-      <div ><a class="link-light mt-4" href="/login">Inscrivez-vous</a></div>
+    <div>
+       <a class="link-light mt-4" href="/registre">Inscrivez-vous</a> 
+    </div>
       
-
   </form>
 </div>

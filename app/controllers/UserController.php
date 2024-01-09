@@ -1,7 +1,7 @@
 <?php
 // namespace App\controllers;
 require_once '../app/core/Router.php';
-require_once '..\app\models\User.php';
+require_once '../app/models/User.php';
 class UserController{
     public Router $router;
 
@@ -16,24 +16,34 @@ class UserController{
     // }
 
     public function signup() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submit']=='submit')
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            
+            // var_dump("coco cv");
             if(!empty($_POST['lname']) && !empty($_POST['fname']) && !empty($_POST['email']) && !empty($_POST['pwd']))
             {
                 $lname = $_POST['lname'];
                 $fname = $_POST['fname'];
                 $email = $_POST['email'];
+                // var_dump($email);
+                // die();
                 $pwd = $_POST['pwd'];
-                var_dump("coco cv");
-                $user = new User();
+                
+                $user = new User;
+                
+                // var_dump($user);
+                // die();
                 $user->setFname($fname);
                 $user->setLname($lname);
                 $user->setEmail($email);
                 $user->setPassword($pwd);
-                
-                
+                // var_dump($user->getEmail());
+                // die();
+         
                 if($user->signup()){
                   echo "success";
+                  die();
                   } 
             }
         }

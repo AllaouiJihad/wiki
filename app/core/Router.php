@@ -1,5 +1,7 @@
 <?php
 require_once 'Request.php';
+require_once '../app/controllers/UserController.php';
+
 class Router {
     static private array $routes = [];
 
@@ -26,7 +28,7 @@ class Router {
                 return self::renderView($callback);
             }
 
-            if (is_array($callback) && count($callback) == 2 && class_exists($callback[0])) {
+            if (is_array($callback) && class_exists($callback[0])) {
                 $controller = new $callback[0]();
                 $method = $callback[1];
 
@@ -35,14 +37,14 @@ class Router {
                 }
             }
 
-            if (is_callable($callback)) {
+           
                 return call_user_func($callback);
-            }
+            
         }
 
         // Route not found
         http_response_code(404);
-        return self::renderView('404'); // Assuming you have a 404 view
+        return self::renderView('404'); 
     }
 
     static public function renderView($view, $variables = [])
@@ -64,7 +66,7 @@ class Router {
     static protected function layoutContent()
     {
         ob_start();
-        require_once dirname(__DIR__)."/views/layout/main.php";
+        require_once dirname(__DIR__)."\\views\\layout\\main.php";
         return ob_get_clean();
     }
 }
