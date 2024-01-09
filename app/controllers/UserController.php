@@ -10,11 +10,6 @@ class UserController{
         $this->router = new Router();
     }
 
-    // public function signup(){
-    //     echo $this->router->renderView('login');
-    //     // include '../app/views/login.php';
-    // }
-
     public function signup() {
         
         if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -42,9 +37,24 @@ class UserController{
                 // die();
          
                 if($user->signup()){
-                  echo "success";
-                  die();
+                  header('Location: login');
                   } 
+            }
+        }
+    }
+
+    public function login(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if(!empty($_POST['email']) &&!empty($_POST['pwd']))
+            {
+                $email = $_POST['email'];
+                $pwd = $_POST['pwd'];
+                $user = new User;
+                $user->setEmail($email);
+                $user->setPassword($pwd);
+                if($user->login()){
+                    header('Location: /');
+                }
             }
         }
     }
