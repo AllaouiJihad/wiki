@@ -18,9 +18,9 @@ class Categorie{
         $this->categorieName = $categorieName;
     }
 
-    public function getAllcategorie(){
+    public function getAllcategories(){
         $sql = "SELECT * FROM `category`";
-        $row = Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+        $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
         }

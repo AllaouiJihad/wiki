@@ -5,7 +5,6 @@ class Wiki{
     private $titre;
     private $auteur;
     private $categorie;
-    private $tag;
     private $date;
     private $status;
     private $contenu;
@@ -40,13 +39,7 @@ class Wiki{
         $this->categorie = $categorie;
     }
 
-    public function getTag() {
-        return $this->tag;
-    }
-
-    public function setTag($tag) {
-        $this->tag = $tag;
-    }
+ 
 
     public function getDate() {
         return $this->date;
@@ -70,8 +63,8 @@ class Wiki{
     }
 
 
-    public function homepage(){
-        $sql = "SELECT * FROM `category`, `wiki` WHERE wiki.status = 0";
+    public function getAllWikis(){
+        $sql = "SELECT * FROM  `wiki` WHERE status = 0";
         $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
@@ -80,15 +73,18 @@ class Wiki{
     }
 
     public function addWiki(){
-        $sql = "INSERT INTO `wiki` (`titre`, `auteur`, `categorie`, `tag`, `date`, `status`, `contenu`) VALUES (:titre, :auteur, :categorie, :tag, :date, :status, :contenu)";
-        $req = Database::connexion()->getPdo()->prepare($sql);
-        $req->bindValue(':titre', $this->titre);
-        $req->bindValue(':auteur', $this->auteur);
-        $req->bindValue(':categorie', $this->categorie);
-        $req->bindValue(':tag', $this->tag);
-        $req->bindValue(':date', $this->date);
-        $req->bindValue(':status', $this->status);
-        $req->bindValue(':contenu', $this->contenu);
-        $req->execute();
+        Database::connexion()->getPdo()->beginTransaction();
+        $sql = "INSERT INTO `wiki`(`title`, `content`, `date`, `id_utilisateur`, `id_category`) 
+                    VALUES (?,?,?,?,?)";
+        $stmt = Database::connexion()->getPdo()->prepare($sql);
+        $stmt->execute([$this->titre, $this->contenu, $this->date, $this->auteur, $this->categorie]);
+        if ($stmt) {
+            $last_id = Database::connexion()->getPdo()->query('SELECT MAX(id) FROM wiki')->fetchcolumn();
+            return $last_id;
+        } 
+        else {
+        
+            return false;
+        }
     }
 }

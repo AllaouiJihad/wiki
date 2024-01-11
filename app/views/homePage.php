@@ -149,36 +149,38 @@ body {
       <div class="container marketing">
 
        <h2>Les Wiki</h2>
-
-
+   
+        
+      <div class="row hidden-md-up">
         <!-- START THE FEATURETTES -->
       <?php foreach ($allwikis as $wiki) {?>
         
 
            
 
-
+        <div class="col-md-4 mb-2">
           <div class="card" style="width: 18rem;">
               <img src="image/image4.png" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title"><?= $wiki->title;?></h5>
-                <a href="#" class="btn btn-primary">voir details</a>
+                <a href="wiki?id=<?=$wiki->id;?>" class="btn btn-primary">voir details</a>
               </div>
           </div>
+          </div>
         <?php }?>
-       
+        </div>
         <hr class="featurette-divider">
     
 
         <!-- /END THE FEATURETTES -->
         <h2 >Les categories</h2>
-        <?php foreach ($allwikis as $allwiki) {?>
+        <?php foreach ($allcategories as $categorie) {?>
 
           
           <div class="card" style="width: 18rem;">
               <div class="card-body">
-                <h5 class="card-title"><?= $allwiki->categoryName ;?></h5>
-                <p class="card-text"><?= $allwiki->description?></p>
+                <h5 class="card-title"><?= $categorie->categoryName ;?></h5>
+                <p class="card-text"><?= $categorie->description?></p>
 
               </div>
           </div>

@@ -1,6 +1,6 @@
 <?php
 require_once 'Request.php';
-require_once '../app/controllers/UserController.php';
+require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/WikiController.php';
 class Router {
     static private array $routes = [];
