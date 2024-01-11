@@ -7,21 +7,26 @@ require_once '../app/models/TagWiki.php';
 
 class WikiController{
     public Router $router;
-
+    public Wiki $wiki;
     public function __construct()
     {
         $this->router = new Router();
+        $this->wiki = new Wiki;
     }
     public function getAllwiki(){
-        $wiki = new Wiki;
+        
         $category = new Categorie;
-        $allwikis =  $wiki->getAllWikis();
+        $allwikis =  $this->wiki->getAllWikis();
         $allcategories = $category->getAllcategories();
         // var_dump($allwikis);die();
         return $this->router->renderView('homePage',["allcategories" => $allcategories,"allwikis"=>$allwikis]);
 
     }
-
+    public function getWiki(){
+        $wiki = $this->wiki->getWiki($_GET['id']);
+        
+        return $this->router->renderView('wiki',["wiki"=>$wiki]);
+    }
     public function getAllCategories(){
         $category = new Categorie();
         return $category->getAllcategories();
@@ -39,6 +44,8 @@ class WikiController{
         return $this->router->renderView('addwiki',  ["categories" => $categories, "tags" =>$tags]);
     }
 
+    
+
     public function addWiki(){
         // echo "coco cv"; die();  
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -49,13 +56,13 @@ class WikiController{
                 $tags = $_POST['tag'];
                 $categorie = $_POST['categotie'];
                 $auteur = $_SESSION['id'];
-                $wiki = new Wiki;
-                $wiki->setAuteur($auteur);
-                $wiki->setTitre($title);
-                $wiki->setCategorie($categorie);
-                $wiki->setDate(date("Y-m-d"));
-                $wiki->setContenu($content);
-                $id=$wiki->addWiki();
+                
+                $this->wiki->setAuteur($auteur);
+                $this->wiki->setTitre($title);
+                $this->wiki->setCategorie($categorie);
+                $this->wiki->setDate(date("Y-m-d"));
+                $this->wiki->setContenu($content);
+                $id=$this->wiki->addWiki();
                 foreach($tags as $tag){
                     $tagWiki = new TagWiki;
                     $tagWiki->setTag($tag);

@@ -87,4 +87,12 @@ class Wiki{
             return false;
         }
     }
+
+    public function getWiki($id){
+        $sql = "SELECT * FROM  `wiki` WHERE id = $id";
+        $row = Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+        if ($row) {
+            return $row;
+        }
+    }
 }

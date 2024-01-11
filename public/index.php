@@ -14,6 +14,7 @@ Router::get('/', [WikiController::class, 'getAllwiki']);
 Router::get('/addWiki',[WikiController::class,'getAllCategoriesTags']);
 Router::post('/addWiki',[WikiController::class, 'addWiki']);
 
-Router::get('/wiki', [WikiController::class,'getAllCategoriesTags']);
+Router::get('/wiki', [WikiController::class,'getWiki']);
+Router::get('/MyWikis', 'myWiki');
 // Router::get('/', [WikiController::class, 'getAllCategory']);
 $app->run();

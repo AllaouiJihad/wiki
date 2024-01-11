@@ -51,7 +51,7 @@
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
           </form>
          <?php
-                    if($_SESSION['id_role'] == 2){
+                    if($_SESSION['id_role']){
           echo '<div class="dropdown">
               <a
                 data-mdb-dropdown-init
@@ -74,10 +74,10 @@
               aria-labelledby="navbarDropdownMenuAvatar"
             >
                 <li>
-                  <a class="dropdown-item" href="#">My profile</a>
+                  <a class="dropdown-item" href="/MyWikis">Mes wikis</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/addWiki">Add Wiki</a>
+                  <a class="dropdown-item" href="/addWiki">Ajouter Wiki</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="/logout">Logout</a>
