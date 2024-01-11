@@ -8,5 +8,9 @@ Router::get('/registre', 'signup');
 Router::post('/registre',[UserController::class, 'signup']);
 Router::get('/login', 'login');
 Router::post('/login',[UserController::class, 'login']);
-Router::get('/', 'homePage');
+
+Router::get('/', [WikiController::class, 'getAllwiki']);
+Router::get('/logout',[UserController::class, 'logout']);
+Router::get('/addWiki','addWiki');
+// Router::get('/', [WikiController::class, 'getAllCategory']);
 $app->run();

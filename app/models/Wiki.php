@@ -70,12 +70,25 @@ class Wiki{
     }
 
 
-    public function getAllwiki(){
-        $sql = "SELECT * FROM `wiki` WHERE `status` = 1";
-        $row = Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+    public function homepage(){
+        $sql = "SELECT * FROM `category`, `wiki` WHERE wiki.status = 0";
+        $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
         }
 
+    }
+
+    public function addWiki(){
+        $sql = "INSERT INTO `wiki` (`titre`, `auteur`, `categorie`, `tag`, `date`, `status`, `contenu`) VALUES (:titre, :auteur, :categorie, :tag, :date, :status, :contenu)";
+        $req = Database::connexion()->getPdo()->prepare($sql);
+        $req->bindValue(':titre', $this->titre);
+        $req->bindValue(':auteur', $this->auteur);
+        $req->bindValue(':categorie', $this->categorie);
+        $req->bindValue(':tag', $this->tag);
+        $req->bindValue(':date', $this->date);
+        $req->bindValue(':status', $this->status);
+        $req->bindValue(':contenu', $this->contenu);
+        $req->execute();
     }
 }

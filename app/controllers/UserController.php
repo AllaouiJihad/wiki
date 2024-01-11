@@ -52,11 +52,23 @@ class UserController{
                 $user = new User;
                 $user->setEmail($email);
                 $user->setPassword($pwd);
-                if($user->login()){
+                $findUser = $user->login();
+                if($findUser){
+                    $_SESSION['id'] = $findUser['id_user'];
+                    // $_SESSION['firstname'] = $user->getFname();
+                    // $_SESSION['lastname'] = $user->getLname();
+                    // $_SESSION['email'] = $user->getEmail();
+                    $_SESSION['id_role']=$findUser['id_role'];
+                    // var_dump($_SESSION['id_role']);die();
                     header('Location: /');
                 }
             }
         }
+    }
+    public function logout()
+    {
+        session_destroy();
+         header('Location: /');
     }
     
 }
