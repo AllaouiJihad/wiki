@@ -29,7 +29,7 @@ class AdminController{
                 $this->tag->setTag_name($tagName);
                 $this->tag->addTag();
                 
-                return $this->router->renderAdminView('tags',["tags"=>$this->tag->getAlltags()]);
+                header('Location: /tags');
             }
         }
     }
