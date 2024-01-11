@@ -53,3 +53,20 @@ FOREIGN KEY (id_wiki) REFERENCES wiki(id);
 
 ALTER TABLE utilisateur ADD CONSTRAINT FK_user_role
 FOREIGN KEY (id_role) REFERENCES role(id);
+
+
+ALTER TABLE wiki
+ADD CONSTRAINT FK_wiki_category
+FOREIGN KEY (id_category) REFERENCES category(id) ON DELETE CASCADE;
+
+ALTER TABLE tag_wiki
+ADD CONSTRAINT FK_wiki_tag
+FOREIGN KEY (id_tag) REFERENCES tag(id) ON DELETE CASCADE;
+
+ALTER TABLE tag_wiki
+ADD CONSTRAINT FK_tag_wiki
+FOREIGN KEY (id_wiki) REFERENCES wiki(id) ON DELETE CASCADE;
+
+ALTER TABLE wiki
+ADD CONSTRAINT FK_wiki_user
+FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id) ON DELETE CASCADE;

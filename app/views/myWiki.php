@@ -1,9 +1,17 @@
-<div class="container marketing">
+
+<style>
+.carousel {
+  margin-top: 5rem;
+}
+</style>
+<div class="container carousel marketing">
 
        <h2>Mes Wikis</h2>
     <div class="row hidden-md-up">
         <!-- START THE FEATURETTES -->
-      <?php foreach ($allwikis as $wiki) {?>
+      <?php
+      if (!empty($wikis)) {
+       foreach ($wikis as $wiki) {?>
         
 
            
@@ -13,11 +21,16 @@
               <img src="image/image4.png" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title"><?= $wiki->title;?></h5>
-                <a href="wiki?id=<?=$wiki->id;?>" class="btn btn-primary">voir details</a>
+                <a href="delete?id=<?=$wiki->id;?>" class="btn btn-denger"><i class="fa-solid fa-trash" style="color: #d04351;"></i></a>
+                <a href="wiki?id=<?=$wiki->id;?>" class="btn btn-denger"><i class="fa-solid fa-pen" style="color: #4c83e1;"></i></a>
+
               </div>
           </div>
           </div>
-        <?php }?>
+
+
+          
+        <?php }}?>
         </div>
         <hr class="featurette-divider">
 

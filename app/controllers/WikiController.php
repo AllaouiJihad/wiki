@@ -44,6 +44,15 @@ class WikiController{
         return $this->router->renderView('addwiki',  ["categories" => $categories, "tags" =>$tags]);
     }
 
+
+    public function getMyWikis(){
+        $auteur = $_SESSION['id'];
+        $wikis = $this->wiki->getMywikis($auteur);
+        
+            return $this->router->renderView('mywiki',["wikis"=>$wikis]);
+
+        
+    }
     
 
     public function addWiki(){
@@ -73,5 +82,10 @@ class WikiController{
             }
         }
 
+    }
+    public function deletewiki(){
+        $id = $_GET['id'];
+        $this->wiki->deleteWiki($id);
+        header('Location: /MyWikis');
     }
 }

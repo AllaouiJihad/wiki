@@ -19,7 +19,7 @@ class Categorie{
     }
 
     public function getAllcategories(){
-        $sql = "SELECT * FROM `category`";
+        $sql = "SELECT * FROM `category` ORDER BY `category`.`id_category` ASC limit 6";
         $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;

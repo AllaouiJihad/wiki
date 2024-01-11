@@ -64,7 +64,7 @@ class Wiki{
 
 
     public function getAllWikis(){
-        $sql = "SELECT * FROM  `wiki` WHERE status = 0";
+        $sql = "SELECT * FROM  `wiki` WHERE status = 0 ORDER BY `wiki`.`date` DESC ";
         $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
@@ -93,6 +93,22 @@ class Wiki{
         $row = Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
+        }
+    }
+
+    public function getMywikis($auteur){
+        $sql = "SELECT * FROM  `wiki` WHERE id_utilisateur = $auteur";
+        $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+        if ($row) {
+            return $row;
+        }
+    }
+
+    public function deleteWiki($id){
+        $sql ="DELETE FROM `wiki` WHERE id = $id";
+        $result = Database::connexion()->getPdo()->query($sql);
+        if ($result) {
+            return true;
         }
     }
 }

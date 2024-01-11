@@ -151,7 +151,7 @@ body {
        <h2>Les Wiki</h2>
    
         
-      <div class="row hidden-md-up">
+      <div class="row hidden-md-up mt-4">
         <!-- START THE FEATURETTES -->
       <?php foreach ($allwikis as $wiki) {?>
         
@@ -173,10 +173,11 @@ body {
     
 
         <!-- /END THE FEATURETTES -->
-        <h2 >Les categories</h2>
+        <h2>Les categories</h2>
+        <div class="row hidden-md-up mt-4">
         <?php foreach ($allcategories as $categorie) {?>
 
-          
+          <div class="col-md-4 mb-2">
           <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title"><?= $categorie->categoryName ;?></h5>
@@ -184,10 +185,12 @@ body {
 
               </div>
           </div>
+        </div>
 
 
 
           <?php }?>
+          </div>
         </div><!-- /.row -->
       </div><!-- /.container -->
 
