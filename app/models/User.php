@@ -7,7 +7,7 @@ class User  {
     private $email;
     private $pwd;
     // private $db;
-    // private $role;
+    private $role;
     
     // public function __construct() {
     //     parent::__construct();
@@ -53,6 +53,12 @@ class User  {
         $this->pwd = $password;
     }   
 
+    public function getRole() {
+        return $this->role;
+    }
+    public function setRole($role) {
+        $this->role = $role;
+    }
 
     public function signup() {
         $hashedPassword = password_hash($this->pwd, PASSWORD_DEFAULT);
@@ -77,11 +83,13 @@ class User  {
             // var_dump($row->pwd);
             // die();
             if( password_verify($this->pwd, $row->pwd) ){
-                // $_SESSION['id'] = $row->id_user;
-                // $_SESSION['firstname'] = $row->firstname;
-                // $_SESSION['email'] = $row->email;
-                // $_SESSION['id_role']=$row->id_role;
-                return true;
+                
+                return [
+                    'id_user' => $row->id,
+                    'id_role' => $row->id_role,
+                    'fname' => $row->Fname,
+                    'lname' => $row->Lname,
+                ];
             }else{
                 echo("password incorrect");
             }

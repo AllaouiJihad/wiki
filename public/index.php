@@ -1,12 +1,27 @@
 <?php
 session_start();
 require_once '../app/core/Application.php';
-// use app\core\Application;
-// use app\controllers\HomeController;
+
 $app = new Application();
 Router::get('/registre', 'signup');
-Router::post('/registre',[UserController::class, 'signup']);
+Router::post('/registre',[AuthController::class, 'signup']);
 Router::get('/login', 'login');
-Router::post('/login',[UserController::class, 'login']);
-Router::get('/', 'homePage');
+Router::post('/login',[AuthController::class, 'login']);
+Router::get('/logout',[AuthController::class, 'logout']);
+
+Router::get('/', [WikiController::class, 'getAllwiki']);
+
+Router::get('/addWiki',[WikiController::class,'getAllCategoriesTags']);
+Router::post('/addWiki',[WikiController::class, 'addWiki']);
+
+Router::get('/wiki', [WikiController::class,'getWiki']);
+Router::get('/MyWikis', [WikiController::class,'getMyWikis']);
+
+Router::get('/delete', [WikiController::class,'deletewiki']);
+// Router::get('/', [WikiController::class, 'getAllCategory']);
+
+
+Router::get('/dashboard', [adminController::class,'index']);
+Router::get('/tags', [adminController::class, 'getTags']);
+Router::post('/tags', [adminController::class, 'addTag']);
 $app->run();

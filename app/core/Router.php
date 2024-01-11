@@ -1,7 +1,8 @@
 <?php
 require_once 'Request.php';
-require_once '../app/controllers/UserController.php';
-
+require_once '../app/controllers/AuthController.php';
+require_once '../app/controllers/WikiController.php';
+require_once '../app/controllers/adminController.php';
 class Router {
     static private array $routes = [];
 
@@ -54,15 +55,29 @@ class Router {
         return str_replace("{{content}}", $viewContent, $layoutContent);
     }
 
+
+    static public function renderAdminView($view, $variables = []){
+        $layoutContent = self::layoutAdminContent();
+        $viewContent =  self::renderOnlyView($view, $variables);
+        return str_replace("{{admincontent}}", $viewContent, $layoutContent);
+    }
+
+
     static protected function renderOnlyView($view, $variables = [])
     {
-        // extract($variables);
+        extract($variables);
+        // echo $variables;
 
         ob_start();
         require_once dirname(__DIR__)."\\views\\$view.php";
         return ob_get_clean();
     }
 
+    static protected function layoutAdminContent(){
+        ob_start();
+        require_once dirname(__DIR__)."\\views\\layout\\adminMain.php";
+        return ob_get_clean();
+    }
     static protected function layoutContent()
     {
         ob_start();

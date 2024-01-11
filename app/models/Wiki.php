@@ -5,7 +5,6 @@ class Wiki{
     private $titre;
     private $auteur;
     private $categorie;
-    private $tag;
     private $date;
     private $status;
     private $contenu;
@@ -40,13 +39,7 @@ class Wiki{
         $this->categorie = $categorie;
     }
 
-    public function getTag() {
-        return $this->tag;
-    }
-
-    public function setTag($tag) {
-        $this->tag = $tag;
-    }
+ 
 
     public function getDate() {
         return $this->date;
@@ -70,12 +63,52 @@ class Wiki{
     }
 
 
-    public function getAllwiki(){
-        $sql = "SELECT * FROM `wiki` WHERE `status` = 1";
-        $row = Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+    public function getAllWikis(){
+        $sql = "SELECT * FROM  `wiki` WHERE status = 0 ORDER BY `wiki`.`date` DESC ";
+        $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
         }
 
+    }
+
+    public function addWiki(){
+        Database::connexion()->getPdo()->beginTransaction();
+        $sql = "INSERT INTO `wiki`(`title`, `content`, `date`, `id_utilisateur`, `id_category`) 
+                    VALUES (?,?,?,?,?)";
+        $stmt = Database::connexion()->getPdo()->prepare($sql);
+        $stmt->execute([$this->titre, $this->contenu, $this->date, $this->auteur, $this->categorie]);
+        if ($stmt) {
+            $last_id = Database::connexion()->getPdo()->query('SELECT MAX(id) FROM wiki')->fetchcolumn();
+            return $last_id;
+        } 
+        else {
+        
+            return false;
+        }
+    }
+
+    public function getWiki($id){
+        $sql = "SELECT * FROM  `wiki` WHERE id = $id";
+        $row = Database::connexion()->getPdo()->query($sql)->fetch(PDO::FETCH_OBJ);
+        if ($row) {
+            return $row;
+        }
+    }
+
+    public function getMywikis($auteur){
+        $sql = "SELECT * FROM  `wiki` WHERE id_utilisateur = $auteur";
+        $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+        if ($row) {
+            return $row;
+        }
+    }
+
+    public function deleteWiki($id){
+        $sql ="DELETE FROM `wiki` WHERE id = $id";
+        $result = Database::connexion()->getPdo()->query($sql);
+        if ($result) {
+            return true;
+        }
     }
 }
