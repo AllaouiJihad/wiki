@@ -26,4 +26,11 @@ class Tag{
             return $row;
         }
     }
+    public function addTag(){
+        $sql ="INSERT INTO `tag`(`tagName`) VALUES (?)";
+        $stmt = Database::connexion()->getPdo()->prepare($sql);
+        $stmt->bindValue(1, $this->tag_name);
+        $stmt->execute();
+        
+    }
 }

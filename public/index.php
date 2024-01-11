@@ -19,4 +19,9 @@ Router::get('/MyWikis', [WikiController::class,'getMyWikis']);
 
 Router::get('/delete', [WikiController::class,'deletewiki']);
 // Router::get('/', [WikiController::class, 'getAllCategory']);
+
+
+Router::get('/dashboard', [adminController::class,'index']);
+Router::get('/tags', [adminController::class, 'getTags']);
+Router::post('/tags', [adminController::class, 'addTag']);
 $app->run();

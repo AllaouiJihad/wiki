@@ -86,7 +86,9 @@ class User  {
                 
                 return [
                     'id_user' => $row->id,
-                    'id_role' => $row->id_role
+                    'id_role' => $row->id_role,
+                    'fname' => $row->Fname,
+                    'lname' => $row->Lname,
                 ];
             }else{
                 echo("password incorrect");

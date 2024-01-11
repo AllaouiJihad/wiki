@@ -55,12 +55,18 @@ class AuthController{
                 $findUser = $user->login();
                 if($findUser){
                     $_SESSION['id'] = $findUser['id_user'];
-                    // $_SESSION['firstname'] = $user->getFname();
-                    // $_SESSION['lastname'] = $user->getLname();
-                    // $_SESSION['email'] = $user->getEmail();
+                    $_SESSION['firstname'] = $findUser['fname'];
+                    $_SESSION['lastname'] = $findUser['lname'];
                     $_SESSION['id_role']=$findUser['id_role'];
-                    // var_dump($_SESSION['id_role']);die();
-                    header('Location: /');
+                    // var_dump($_SESSION['lastname']);die();
+                    // $_SESSION['email'] = $user->getEmail();
+                   
+                    if ($_SESSION['id_role'] == 1) {
+                        header('Location: dashboard');
+                    }
+                    elseif ($_SESSION['id_role'] == 2) {
+                        header('Location: /');
+                    }
                 }
             }
         }
