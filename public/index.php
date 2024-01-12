@@ -22,6 +22,13 @@ Router::get('/delete', [WikiController::class,'deletewiki']);
 
 
 Router::get('/dashboard', [adminController::class,'index']);
+
 Router::get('/tags', [adminController::class, 'getTags']);
 Router::post('/tags', [adminController::class, 'addTag']);
+Router::get('/deleteTag', [adminController::class, 'deleteTag']);
+Router::post('/tags', [adminController::class, 'editTag']);
+
+Router::get('/categories', [adminController::class, 'getAllcategories']);
+Router::post('/categories', [adminController::class, 'addCategorie']);
+Router::get('/deleteCategorie', [adminController::class, 'deleteCategorie']);
 $app->run();
