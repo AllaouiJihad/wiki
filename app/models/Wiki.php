@@ -64,7 +64,7 @@ class Wiki{
 
 
     public function getAllWikis(){
-        $sql = "SELECT * FROM  `wiki` WHERE status = 0 ORDER BY `wiki`.`date` DESC ";
+        $sql = "SELECT * FROM  `wiki` JOIN utilisateur ON wiki.id_utilisateur = utilisateur.id_user WHERE status = 1 ORDER BY `wiki`.`date` DESC ";
         $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         if ($row) {
             return $row;
@@ -110,5 +110,23 @@ class Wiki{
         if ($result) {
             return true;
         }
+    }
+    public function getArchiveWikis(){
+        $sql = "SELECT * FROM wiki JOIN utilisateur ON wiki.id_utilisateur = utilisateur.id_user  WHERE wiki.status = 0";
+        $row = Database::connexion()->getPdo()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+        if ($row) {
+            return $row;
+        }
+    }
+    public function desarchiver($id){
+        $sql = "UPDATE `wiki` SET `status` = 1 WHERE id = $id";
+        $result = Database::connexion()->getPdo()->prepare($sql);
+        $result->execute();
+    }
+
+    public function archiver($id){
+        $sql = "UPDATE `wiki` SET `status` = 0 WHERE id = $id";
+        $result = Database::connexion()->getPdo()->prepare($sql);
+        $result->execute();
     }
 }

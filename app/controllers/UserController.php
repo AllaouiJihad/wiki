@@ -10,6 +10,13 @@ class UserController{
         $this->router = new Router();
     }
 
+    public function getAllUsers(){
+        $user = new User();
+        $users = $user->getAllusers();
+        // var_dump($users);die();
+        return $this->router->renderAdminView('users',["users"=>$users]);
+    }
+
     
     
 }

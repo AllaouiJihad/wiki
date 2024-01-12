@@ -31,4 +31,11 @@ Router::post('/tags', [adminController::class, 'editTag']);
 Router::get('/categories', [adminController::class, 'getAllcategories']);
 Router::post('/categories', [adminController::class, 'addCategorie']);
 Router::get('/deleteCategorie', [adminController::class, 'deleteCategorie']);
+
+Router::get('/users', [UserController::class, 'getAllUsers']);
+
+Router::get('/wikis', [adminController::class, 'getWikis']);
+Router::get('/archive', [adminController::class, 'getArchiveWikis']);
+Router::get('/nonArchive', [adminController::class, 'desarchiver']);
+Router::get('/archivee', [adminController::class, 'archiver']);
 $app->run();

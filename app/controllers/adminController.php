@@ -3,16 +3,19 @@
 require_once '../app/core/Router.php';
 require_once '../app/models/Tag.php';
 require_once '../app/models/Categorie.php';
+require_once '../app/models/Wiki.php';
 
 class AdminController{
     public Router $router;
     public Tag $tag;
     public Categorie $categorie;
+    public Wiki $wiki;
     public function __construct()
     {
         $this->router = new Router();
         $this->tag = new Tag();
         $this->categorie = new Categorie();
+        $this->wiki = new Wiki();
 
     }
 
@@ -96,6 +99,33 @@ class AdminController{
         $this->categorie->deleteCategorie($id);
         header('Location: /categories');
     }
+
+    public function getArchiveWikis(){
+        $wikis=$this->wiki->getArchiveWikis();
+        if (!empty($wikis)) {
+            return $this->router->renderAdminView('archive',["wikis"=>$wikis]);
+        }
+        
+    }
+    public function desarchiver(){
+        $id = $_GET['id'];
+        $this->wiki->desarchiver($id);
+        header('Location: /archive');
+    }
+    public function archiver(){
+        $id = $_GET['id'];
+
+        $this->wiki->archiver($id);
+        header('Location: /wikis');
+    }
+
+    public function getWikis(){
+        $wikis=$this->wiki->getAllWikis();
+        if (!empty($wikis)) {
+            return $this->router->renderAdminView('wikis',["wikis"=>$wikis]);
+        }
+    }
+    
 
 }
 

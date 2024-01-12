@@ -60,6 +60,12 @@ class User  {
         $this->role = $role;
     }
 
+    public function getAllusers(){
+        $sql = "SELECT * FROM utilisateur WHERE id_role = 2";
+        $query = Database::connexion()->getPdo()->query($sql);
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function signup() {
         $hashedPassword = password_hash($this->pwd, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `utilisateur` (`Fname`, `Lname`, `email`, `pwd`, `id_role`) VALUES (?, ?, ?, ?, 2)";
@@ -85,7 +91,7 @@ class User  {
             if( password_verify($this->pwd, $row->pwd) ){
                 
                 return [
-                    'id_user' => $row->id,
+                    'id_user' => $row->id_user,
                     'id_role' => $row->id_role,
                     'fname' => $row->Fname,
                     'lname' => $row->Lname,

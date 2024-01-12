@@ -3,6 +3,7 @@ require_once 'Request.php';
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/WikiController.php';
 require_once '../app/controllers/adminController.php';
+require_once '../app/controllers/UserController.php';
 class Router {
     static private array $routes = [];
 
