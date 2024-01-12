@@ -158,6 +158,13 @@ if ($_SESSION['id_role'] != 1) {
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/archive"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-box-archive"></i>
+                                <span class="hide-menu">Archive</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/wikis"
                                 aria-expanded="false">
                                 <i class="fa fa-font" aria-hidden="true"></i>

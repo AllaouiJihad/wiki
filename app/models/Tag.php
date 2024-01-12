@@ -31,6 +31,20 @@ class Tag{
         $stmt = Database::connexion()->getPdo()->prepare($sql);
         $stmt->bindValue(1, $this->tag_name);
         $stmt->execute();
-        
+
+    }
+    public function deleteTag($id_tag){
+        $sql = "DELETE FROM `tag` WHERE `id_tag` = ?";
+        $stmt = Database::connexion()->getPdo()->prepare($sql);
+        $stmt->bindValue(1, $id_tag);
+        $stmt->execute();
+    }
+
+    public function updateTag($id_tag){
+        $sql = "UPDATE `tag` SET `tagName` =? WHERE `id_tag` =?";
+        $stmt = Database::connexion()->getPdo()->prepare($sql);
+        $stmt->bindValue(1, $this->tag_name);
+        $stmt->bindValue(2, $id_tag);
+        $stmt->execute();
     }
 }
